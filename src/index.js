@@ -374,7 +374,9 @@ class State {
                         memory: options.memory,
                     });
                     return exports;
-                }`
+                }
+
+                export const initSync = init;`
 
             } else {
                 sideEffects = true;
@@ -394,6 +396,14 @@ class State {
                 export async function init(options) {
                     await exports.default({
                         module_or_path: await options.module,
+                        memory: options.memory,
+                    });
+                    return exports;
+                }
+
+                export function initSync(options) {
+                    exports.initSync({
+                        module: options.module,
                         memory: options.memory,
                     });
                     return exports;
@@ -472,6 +482,14 @@ class State {
                 export async function init(options) {
                     await exports.default({
                         module_or_path: await options.module,
+                        memory: options.memory,
+                    });
+                    return exports;
+                }
+
+                export function initSync(options) {
+                    exports.initSync({
+                        module: options.module,
                         memory: options.memory,
                     });
                     return exports;

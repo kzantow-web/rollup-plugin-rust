@@ -146,6 +146,15 @@ If you add `?custom` when importing a `Cargo.toml` file, it will give you:
    * `module` which is a `URL` or `Uint8Array` or `WebAssembly.Module` for the `.wasm` code.
    * `memory` which is a `WebAssembly.Memory` that will be used as the memory for the Wasm.
 
+* `initSync` which is a function that *synchronously* initializes the Wasm.
+
+   The `initSync` function should be avoided as much as possible, strongly prefer using `init` instead.
+
+   The `initSync` function accepts these options:
+
+   * `module` which is a `Uint8Array` or `WebAssembly.Module` for the `.wasm` code.
+   * `memory` which is a `WebAssembly.Memory` that will be used as the memory for the Wasm.
+
 ```js
 import { module, init } from "./path/to/Cargo.toml?custom";
 
