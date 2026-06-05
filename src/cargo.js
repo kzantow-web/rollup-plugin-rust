@@ -94,13 +94,16 @@ export async function run({ dir, verbose, cargoArgs, rustcArgs, release, optimiz
     if (atomics) {
         rustflags.push(
             "-C", "target-feature=+atomics,+bulk-memory,+mutable-globals",
-            "-C", "link-args=--shared-memory",
-            "-C", "link-args=--import-memory",
 
-            "-C", "link-args=--export=__wasm_init_tls",
-            "-C", "link-args=--export=__tls_size",
-            "-C", "link-args=--export=__tls_align",
-            "-C", "link-args=--export=__tls_base",
+            // https://github.com/rust-lang/rust/pull/156174
+            "-C", "link-arg=--max-memory=1073741824",
+            "-C", "link-arg=--shared-memory",
+            "-C", "link-arg=--import-memory",
+            "-C", "link-arg=--export=__heap_base",
+            "-C", "link-arg=--export=__wasm_init_tls",
+            "-C", "link-arg=--export=__tls_size",
+            "-C", "link-arg=--export=__tls_align",
+            "-C", "link-arg=--export=__tls_base",
         );
 
         args.push("-Z", "build-std=panic_abort,core,std,alloc,proc_macro");
